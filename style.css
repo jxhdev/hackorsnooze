@@ -1,0 +1,29 @@
+nav {
+  background-color: rgb(223, 63, 27);
+}
+
+h3 {
+  display: inline;
+  color: black;
+}
+a {
+  color: black;
+  padding-left: 16px;
+}
+
+.container {
+  background-color: rgb(245, 245, 238);
+  padding: 0;
+}
+
+form {
+  padding: 15px;
+}
+
+.navbar {
+  width: 100%;
+}
+
+.host:hover {
+  text-decoration: underline !important;
+}
