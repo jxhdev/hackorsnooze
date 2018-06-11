@@ -17,16 +17,19 @@
 </head>
 
 <body>
-  <div class='container'>
+  <div class='container rounded' id='mainContent'>
     <!-- NAV BAR -->
-    <nav class='navbar rounded navbar-expand'>
+    <nav class='navbar navbar-expand'>
       <h3 class=''>Hack or Snooze</h3>
       <div class=''>
-        <a href="#" id='submit' class='small' data-toggle='dropdown'>Submit</a>
-        <a href="#" id='favHostNav' class='small'>Favorites</a>
+        <a href="#" id='submit' class='small' data-toggle='dropdown'>Submit New Story</a>
+        <a href="#" id='favoriteNav' class='small'>Favorites</a>
+        <a href="#" id="loginNav" class='small'>Log In</a>
+        <a href="#" id="profileNav" class='small'>Profile</a>
+        <a href="#" id="logOutNav" class='small'>Log Out</a>
       </div>
     </nav>
-<!-- SUBMIT STORY FORM -->
+    <!-- SUBMIT STORY FORM -->
     <form id='storyForm' action="#">
       <div class="form-inline">
         <label for="title" class='mr-4'>Title</label>
@@ -43,49 +46,56 @@
       <button id="submitStory" class="btn btn-outline-dark">Submit</button>
     </form>
 
-<!-- Sign Up Form -->
-    <form id='signUpForm' action="#">
-      <h1>SIGN UP</h1>
-      <div class='form-inline'>
-        <label for="name" class='mr-4'>Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Your Name">
-      </div>
-      <div class="form-inline">
-        <label for="username" class='mr-4'>Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter a username">
-      </div>
-      <div class="form-inline">
-        <label for="password" class='mr-4'>Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password">
-      </div>
-      <button id='signUpButton' class='btn btn-outline-dark'>Create a new user</button>
-    </form>
+
 
     <!-- LOG IN FORM -->
-    <!-- todo: change names  -->
-    <form id='logInForm' action="#">
-      <h1>LOG IN</h1>
-      <div class="form-inline">
-        <label for="logInusername" class='mr-4'>Username</label>
-        <input type="text" class="form-control" id="logInusername" placeholder="Enter a username">
-      </div>
-      <div class="form-inline">
-        <label for="logInpassword" class='mr-4'>Password</label>
-        <input type="password" class="form-control" id="logInpassword" placeholder="Password">
-      </div>
-      <button id='logInButton' type="submit" class="btn btn-outline-dark">Log In</button>
-    </form>
-<div class='container' id='userProfile'>
-  <h1>User Profile</h1>
-  <ul>
-    <ul>
-      <li id='profileName'>Name:</li>
-      <li id='profileUsername'>Username:</li>
-      <ol id='profileFavorites'>Favorites:</ol>
-      <ol id='profileStories'>Stories:</ol>
-    </ul>
-  </ul>
-</div>
+    <div id="logInOrCreateUser">
+      <!-- current user login -->
+      <form id='logInForm' action="#">
+        <div class="form-inline">
+          <label for="logInusername" class='mr-4'>Username</label>
+          <input type="text" class="form-control" id="logInusername" placeholder="Enter a username">
+        </div>
+        <div class="form-inline">
+          <label for="logInpassword" class='mr-4'>Password</label>
+          <input type="password" class="form-control" id="logInpassword" placeholder="Password">
+        </div>
+        <button id='logInButton' type="submit" class="btn btn-outline-dark btn-sm">Log In</button>
+        <button id="createNewUser" class="btn btn-warning btn-sm">Create Account</button>
+      </form>
+
+      <!-- New User Sign Up Form -->
+      <form id='signUpForm' action="#">
+        <div class='form-inline'>
+          <label for="name" class='mr-4'>Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Your Name">
+        </div>
+        <div class="form-inline">
+          <label for="username" class='mr-4'>Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter a username">
+        </div>
+        <div class="form-inline">
+          <label for="password" class='mr-4'>Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <button id='signUpButton' class='btn btn-outline-dark btn-sm'>Create a new user</button>
+        <button id="alreadyUser" class="btn btn-warning btn-sm">Already have an account?</button>
+      </form>
+    </div>
+
+    <!-- user profile -->
+    <div class='container' id='userProfile'>
+      <h1>User Profile</h1>
+      <ul>
+        <ul>
+          <li id='profileName'>Name:</li>
+          <li id='profileUsername'>Username:</li>
+          <ol id='profileFavorites'>Favorites:</ol>
+          <ol id='profileStories'>Stories:</ol>
+        </ul>
+      </ul>
+    </div>
+    <!-- home story list -->
     <div id='storyContainer'>
       <ol id='stories'>
         <li>
@@ -111,5 +121,3 @@
 <script src='main.js'></script>
 
 </html>
-
-<a href='asdf'

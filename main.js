@@ -1,3 +1,5 @@
+//on ready??
+
 let token = localStorage.getItem('token')
   ? localStorage.getItem('token')
   : undefined;
@@ -5,6 +7,7 @@ let loggedInUserName = localStorage.getItem('userName')
   ? localStorage.getItem('userName')
   : undefined;
 let $stories = $('#stories');
+let userData;
 
 // populate the stories
 $('#stories').on('click', 'span', e => {
@@ -72,11 +75,18 @@ $('#logInButton').on('click', function(e) {
       loggedInUserName = localStorage.getItem('userName');
       populateUserData();
       console.log('Log in successful!');
+      $('#logInForm')[0].reset();
+      $('#logInOrCreateUser').hide('fast');
+      $('#favoriteNav').toggle();
+      $('#profileNav').toggle();
+      $('#loginNav').toggle();
+      $('#submit').show();
+      $('#logOutNav').show();
     })
     .catch(e => {
       console.log('There was an error!');
     });
-  $('#signUpForm')[0].reset();
+
   // to do: log error in HTML
 });
 
@@ -103,6 +113,8 @@ $('#submitStory').click(function(e) {
     }
   })
     .then(res => {
+      $('#storyForm').toggle('fast');
+      $('#storyForm')[0].reset();
       console.log('success!');
       populate();
     })
@@ -135,8 +147,9 @@ function populateUserData() {
     type: 'GET',
     headers: { Authorization: `Bearer ${token}` }
   }).then(res => {
-    $('#profileName').text(`Name: ${res.data.name}`);
-    $('#profileUsername').text(`Username: ${res.data.username}`);
+    userData = res.data;
+    $('#profileName').text(`Name: ${userData.name}`);
+    $('#profileUsername').text(`Username: ${userData.username}`);
     let $profileFavorites = $('#profileFavorites');
     let $profileStories = $('#profileStories');
     $profileFavorites.empty();
@@ -144,14 +157,14 @@ function populateUserData() {
     $profileStories.empty();
     $profileStories.text('Stories');
 
-    res.data.favorites.forEach(data => {
+    userData.favorites.forEach(data => {
       $profileFavorites.append(
         `<li><span class='fas fa-times'></span><a data-id=${
           data.storyId
         } href='${data.url}'> ${data.title}</a></li>`
       );
     });
-    res.data.stories.forEach(data => {
+    userData.stories.forEach(data => {
       $profileStories.append(
         `<li><span class='fas fa-times'></span><a data-id=${
           data.storyId
@@ -197,3 +210,60 @@ function populateUserData() {
     });
   });
 }
+
+$('#submit').click(function() {
+  $('#storyForm').toggle('fast');
+});
+
+$('#loginNav').click(function() {
+  $('#logInOrCreateUser').toggle('fast');
+});
+
+$('#createNewUser').click(function() {
+  $('#logInForm').toggle('fast');
+  $('#signUpForm').toggle('fast');
+});
+
+$('#alreadyUser').click(function() {
+  $('#logInForm').toggle('fast');
+  $('#signUpForm').toggle('fast');
+});
+
+$('#profileNav').click(function() {
+  $('#userProfile').toggle('fast');
+  $('#storyContainer').toggle('fast');
+  if ($('#profileNav').text() === 'Profile') {
+    $('#favoriteNav').toggle();
+    $('#profileNav').text('Back');
+  } else {
+    $('#profileNav').text('Profile');
+    $('#favoriteNav').toggle();
+  }
+});
+
+//show favorite stories only
+
+$('#favoriteNav').click(function() {
+  $('#stories').toggle('fast');
+  $('#favList').empty();
+
+  if ($('#favoriteNav').text() === 'Favorites') {
+    $('#favoriteNav').text('All Stories');
+    $.ajax(`https://hack-or-snooze.herokuapp.com/users/${loggedInUserName}`, {
+      type: 'GET',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res =>
+        res.data.favorites.forEach(data => {
+          $('#favList').append(
+            `<li><span class='fas  fa-star'></span><a data-id=${
+              data.storyId
+            } href='${data.url}'> ${data.title}</a></li>`
+          );
+        })
+      )
+      .catch(err => console.log('FAIL'));
+  } else {
+    $('#favoriteNav').text('Favorites');
+  }
+});

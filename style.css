@@ -11,9 +11,11 @@ a {
   padding-left: 16px;
 }
 
-.container {
+#mainContent {
   background-color: rgb(245, 245, 238);
   padding: 0;
+  border: 2px solid gray;
+  margin-top: 1%;
 }
 
 form {
@@ -26,4 +28,19 @@ form {
 
 .host:hover {
   text-decoration: underline !important;
+}
+
+#signUpForm,
+#logInOrCreateUser,
+#userProfile,
+#storyForm,
+#favoriteNav,
+#profileNav,
+#submit,
+#logOutNav {
+  display: none;
+}
+
+#storyContainer {
+  padding-top: 1%;
 }
